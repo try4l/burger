@@ -8,11 +8,19 @@ var burger = {
   },
   // The variables cols and vals are arrays.
   insertOne: function(cols, vals, cb) {
-    orm.createOne("burgers", cols, vals, function(res) {
+    orm.insertOne("burgers", cols, vals, function(res) {
       cb(res);
     });
   },
+  // objColVals is an object with update criteria, condition is 'id = ' + res.params.id
   updateOne: function(objColVals, condition, cb) {
+    orm.updateOne("burgers", objColVals, condition, function(res) {
+      cb(res);
+    });
+  },
+  // test function to 'undevour'
+  // objColVals is an object with update criteria, condition is 'id = ' + res.params.id
+  reverseOne: function(objColVals, condition, cb) {
     orm.updateOne("burgers", objColVals, condition, function(res) {
       cb(res);
     });

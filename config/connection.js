@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "",
-  database: "burger_db"
+  database: "burgers_db"
 });
 
 // Make connection.
@@ -15,7 +15,7 @@ connection.connect(function(err) {
     console.error("error connecting: " + err.stack);
     return;
   }
-  console.log("Node connected (to SQL database ", connection.database, ") as id " + connection.threadId + " on Port: ", connection.port);
+  console.log("Node connected (to SQL database) as id: " + connection.threadId);
   console.log("Eat da Burger is in the house!");
 });
 

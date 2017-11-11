@@ -1,11 +1,13 @@
-<h1>Burgers!</h1>
+<!-- Test Section -->
+<!-- <h1>Burgers!</h1>
+<p>Connected to server and rendered.</p>
 
 <h2>Burgers that are not devoured!</h2>
 
 <ul>  
   {{#each burgers}}
-    {{#unless devoured}}
-      {{> burgers/test devour=true}}   <!-- up to (views) burger and down to (public) test ?? -->
+    {{#unless this.devoured}}
+       {{this.id}}. {{this.burger_name}}   
     {{/unless}}
   {{/each}}
 </ul>
@@ -14,25 +16,61 @@
 
 <ul>
   {{#each burgers}}
-    {{#if devoured}}
-      {{> burgers/test devour=false}}
+    {{#if this.devoured}}
+      <input class="form-control" type="text" placeholder="{{this.id}}. {{this.burger_name}}" readonly="true">
     {{/if}}
   {{/each}}
-</ul>
+</ul> -->
 
-<h2>Add a Burger</h2>
-<form class="create-form">
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 text-center" id="top-bar">
+      <h1>Burgers!</h1>
+    </div> 
+    <div class="col-xs-6 text-center" class="task">
+      <div class="row">
+        {{#each burgers}}
+          {{#unless this.devoured}}
+            <div class="col-xs-9 text-center">
+              <pre>{{this.id}}. {{this.burger_name}}</pre> 
+            </div>
+            <div class="col-xs-3 text-center">
+              <!-- <form method="POST" action="burgers/update?_method=PUT" class="button-size"> -->
+              <form method="POST" action="burgers/{{this.id}}?_method=PUT" class="button-size">
+                <input type="hidden" name="id" type="text" value="{{this.id}}">
+                <br>
+                <button type="submit" class="btn btn-default">Devour It!</button>
+              </form>              
+            </div>
+          {{/unless}}
+        {{/each}}        
+      </div>
+    </div>
 
-  <div class="form-group">
-    <label for="ca">Burger Name:</label>
-    <input type="text" id="ca" name="name">
+    <div class="col-xs-6 text-center" class="task">
+      <div class="row">
+        {{#each burgers}}
+          {{#if this.devoured}}
+            <input class="form-control" type="text" placeholder="{{this.id}}. {{this.burger_name}}" readonly="true">
+          {{/if}}
+        {{/each}}        
+      </div>
+    </div>
+
   </div>
+</div>
 
-  <div class="form-group">
-    <label for="slee">Devoured?</label><br>
-    <input type="radio" name="devoured" value="1" checked> Devoured!<br>
-    <input type="radio" name="devoured" value="0"> Available
+<div class="col-xs-12 text-center" id="bottom-bar">
+  <h2>Add a Burger</h2>
+</div>
+<div class="row">
+  <div class="col-xs-12 text-center">
+    <form class="create-form" action="/burgers" method="POST">
+      <!-- <div class="form-group"> -->
+        <!-- <label for="ca">Burger Name:</label> -->
+        <input type="text" id="name" name="burger_name" placeholder="New Burger">
+      <!-- </div> -->
+      <button type="submit" class="addBurgerButton">Add Burger</button>
+    </form>    
   </div>
-
-  <button type="submit">Add Burger</button>
-</form>
+</div>
